@@ -145,7 +145,7 @@ body {
     margin-top: 20px;
     padding: 18px;
     border-radius: 18px;
-    background: rgba(255, 182, 193, 0.4);
+    background: rgba(213, 154, 163, 0.769);
     backdrop-filter: blur(6px);
     text-align: center;
     opacity: 0;
@@ -206,6 +206,20 @@ body {
     backdrop-filter: blur(6px);
     box-shadow: 0 15px 40px rgba(0,0,0,0.35);
 }
+.thank-you {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.thank-you.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 
 @keyframes floatUp {
@@ -239,7 +253,7 @@ body {
         <div class="answer-buttons" id="answers">
             <button onclick="yesAnswer('I love you bebe')">Yes </button>
             <button onclick="yesAnswer('Thanks bebe')">Please </button>
-            <button onclick="noAnswer()">No </button>
+            <button onclick="noAnswer('Thank you for answering 💖')">No </button>
         </div>
     </div>
 
@@ -251,8 +265,12 @@ body {
     <div class="date-plan" id="datePlan">
         <h2>Our Valentine’s Day 02-14-2026</h2>
         <p>I’ll sundo you at <strong>9:00 AM</strong> if that okay</p>
-        <p>Dangwa 🌹 → Gateway 🛍️ → Photobooth 📸</p>
+        <p>Dangwa 🌹 → Gateway 🛍️ → Photobooth 📸<br>
+            Thank you for answering 💖
+        </p>
     </div>
+   
+
 </div>
 
 <script>
@@ -281,7 +299,7 @@ function yesAnswer(text) {
 
 function noAnswer() {
     const message = document.getElementById('message');
-    message.innerText = "It’s okay… I still love bebe so much 💗";
+    message.innerText = "It’s okay... Thank you for answering. 💗";
     message.classList.add('show');
 }
 
