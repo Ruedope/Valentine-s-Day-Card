@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url("envelope.jpg") no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Envelope */
+.envelope-container {
+    width: 600px;
+    height: 350px;
+    perspective: 1200px;
+    cursor: pointer;
+}
+
+.envelope {
+    width: 100%;
+    height: 100%;
+    background: rgba(136, 5, 70, 0.417);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    text-align: center;
+    transform-origin: top;
+    transition: transform 1s ease, opacity 0.8s ease;
+}
+
+.envelope.open {
+    transform: rotateX(180deg);
+    opacity: 0;
+}
+
+.phoebe,
+.bebe {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.click-note {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Content */
+.content {
+    position: absolute;
+    width: 550px;
+    height: 350px;
+    background: rgba(136, 5, 70, 0.417);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+    pointer-events: none;
+}
+
+.content.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Valentine text */
+#valentineText {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.0rem;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+    line-height: 1.5;
+    text-shadow: 8px 8px 8px rgba(0,0,0,0.4);
+    color: rgb(255, 255, 255);
+}
+
+
+/* Answer buttons */
+.answer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.answer-buttons button {
+    background: rgba(222, 123, 172, 0.347);
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 26px;
+    border-radius: 22px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.answer-buttons button:hover {
+    background: rgba(255, 226, 242, 0.58);
+    transform: scale(1.05);
+}
+
+/* Message */
+.message {
+    margin-top: 100px;
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Date plan */
+.date-plan {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 182, 193, 0.4);
+    backdrop-filter: blur(6px);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.date-plan.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.date-plan h2 {
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+}
+
+/* Hearts */
+.heart {
+    position: fixed;
+    bottom: -40px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff4d8d;
+    transform: rotate(45deg);
+    animation: floatUp linear forwards;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: inherit;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+
+.heart::after {
+    left: 10px;
+    top: 0;
+}
+.letter-box {
+    width: 100%;
+    max-width: 480px;
+    height: 1700px;
+    background: rgba(237, 223, 231, 0.25); /* same pink theme */
+    border-radius: 18px;
+    padding: 30px 25px;
+    text-align: center;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+
+@keyframes floatUp {
+    from {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-120vh) rotate(45deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="envelope-container" onclick="openEnvelope()">
+    <div class="envelope" id="envelope">
+        <div class="phoebe">To: Phoebe Lindsay V. Adriano</div>
+        <div class="click-note">Click to open 💌</div>
+        <div class="bebe">From: Bebe</div>
+    </div>
+</div>
+
+<div class="content" id="content">
+
+    <div class="letter-box">
+        <h1 id="valentineText">Will you be my Valentine?</h1>
+
+        <div class="answer-buttons" id="answers">
+            <button onclick="yesAnswer('I love you bebe')">Yes </button>
+            <button onclick="yesAnswer('Thanks bebe')">Please </button>
+            <button onclick="noAnswer()">No </button>
+        </div>
+    </div>
+
+</div>
+
+
+    <div class="message" id="message"></div>
+
+    <div class="date-plan" id="datePlan">
+        <h2>Our Valentine’s Day 02-14-2026</h2>
+        <p>I’ll sundo you at <strong>9:00 AM</strong> if that okay</p>
+        <p>Dangwa 🌹 → Gateway 🛍️ → Photobooth 📸</p>
+    </div>
+</div>
+
+<script>
+function openEnvelope() {
+    document.getElementById('envelope').classList.add('open');
+
+    setTimeout(() => {
+        document.getElementById('content').classList.add('show');
+        spawnHearts();
+    }, 600);
+}
+
+function yesAnswer(text) {
+    const message = document.getElementById('message');
+    const datePlan = document.getElementById('datePlan');
+
+    message.innerText = `Yay! ${text} our first Vday together!`;
+    message.classList.add('show');
+
+    setTimeout(() => {
+        datePlan.classList.add('show');
+    }, 400);
+
+    spawnHearts();
+}
+
+function noAnswer() {
+    const message = document.getElementById('message');
+    message.innerText = "It’s okay… I still love bebe so much 💗";
+    message.classList.add('show');
+}
+
+function spawnHearts() {
+    for (let i = 0; i < 28; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 7000);
+    }
+}
+</script>
+
+</body>
+</html>
